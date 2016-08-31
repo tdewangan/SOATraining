@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,15 +23,15 @@ public class ConsumerService {
 	private DiscoveryClient client;
 
 	@RequestMapping("/orders")
-	public List<Order> getData() {
+	public ResponseEntity<List<Order>> getData() {
 		List<ServiceInstance> list = client.getInstances("order-microservice");
 		if (!list.isEmpty()) {
 			URI uri = list.get(0).getUri();
 			if (uri != null) {
-				return (new RestTemplate()).getForObject(uri, List.class);
+				return new ResponseEntity<List<Order>>((new RestTemplate()).getForObject(uri.toString().concat("/api/order"), List.class),HttpStatus.OK);
 			}
 		}
-		return null;
+		return new ResponseEntity<List<Order>>(HttpStatus.BAD_REQUEST);
 	}
 
 	@RequestMapping(value = "/ordersPost", method = RequestMethod.POST)

@@ -10,14 +10,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.Manufacturer;
+import com.example.model.Order;
 import com.example.repository.ManufacturerRepository;
 
 
 @RestController
 public class ManufacturerAPI {
+	@Autowired
+	private OrderClient orderClient;
 
 	@Autowired
 	private ManufacturerRepository manufacturerRepository;
@@ -44,5 +48,11 @@ public class ManufacturerAPI {
 			manufacturerRepository.save(manufacturer);
 		}
 		return new ResponseEntity<Manufacturer>(manufacturer, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value="/api/manufacturer/orders")
+	@ResponseBody
+	public List<Order> findOrders(){
+		return orderClient.findAll();
 	}
 }
