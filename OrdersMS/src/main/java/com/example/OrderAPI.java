@@ -32,10 +32,7 @@ public class OrderAPI {
 
 	@RequestMapping(value = "/api/order", method = RequestMethod.GET)
 	public ResponseEntity<List<Order>> findAll() {
-		Order order = new Order(3,"Local Order 4", new Date(), true);
-		List<Order> list=new ArrayList<>();
-		list.add(order);
-		return new ResponseEntity<List<Order>>(list, HttpStatus.OK);
+		return new ResponseEntity<List<Order>>(manufacturerRepository.findAll(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/api/order", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
