@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: order-loadbalancer
+  cloud:
+    config:
+      uri: http://localhost:8080
+
+---
+#It peeks randomly available port
+server:
+  port: 8006
