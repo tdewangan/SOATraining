@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: msoauthserver-microservice
+  cloud:
+    config:
+      uri: http://localhost:8080
+
+server:
+  port: 8060
+  
+#Define Security
+security:
+  basic:
+    enabled: false
+  user:
+    password: password
+  ignored:
+    - /css/**,/js/**,/favicon.ico,/webjars/**
