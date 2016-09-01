@@ -8,11 +8,17 @@ spring:
   
 ---
 #Allows consul to recognise two apps of the same type on the same host as seprate instances
+#watch.enabled make false to disable microservice pull feature so that config server can push changes
+#This property is not working as expected, need to revisit
 spring:
   cloud:
     consul:
       discovery:
         instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+        health-check-interval: 10m
+      config:
+        watch:
+          enabled: false  
 ---
 #It peeks randomly available port
 server:
