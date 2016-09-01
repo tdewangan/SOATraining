@@ -3,6 +3,10 @@
 ## Consul configuration
 * consul agent -dev
 * consul members
+* rabbitmq-server start
+* ./mvnw docker:builders from docker for deployment
+* docker images
+* docker run -it -p 80:8080 manufacturer-microservice
 
 https://github.com/krishnamurthypradeep
 http://localhost:8080/configprops
